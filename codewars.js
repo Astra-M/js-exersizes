@@ -1,3 +1,25 @@
+function delay(ms) {
+  return (promise = new Promise((resolve, reject) => {
+    setTimeout(resolve, ms);
+  }));
+}
+
+// правильный синтаксис:
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+delay(3000).then(() => console.log("выполнилось через 3 секунды"));
+
+// const pow = (x, n) => {
+//   let result = x;
+//   for (let count = 1; count < n; count++) {
+//     result = result * x;
+//     // console.log(result);
+//   }
+//   return result;
+// };
+// console.log(pow(2, 3));
 // ТЕСТ 5
 // В простых случаях циклических ссылок мы можем исключить свойство, из-за которого они возникают, из сериализации по его имени.
 
