@@ -1,15 +1,71 @@
-function delay(ms) {
-  return (promise = new Promise((resolve, reject) => {
-    setTimeout(resolve, ms);
-  }));
-}
+// Правильное  решение состоит в том, чтобы возвращать сам объект из каждого вызова.
+
+// let ladder = {
+//   step: 0,
+//   up() {
+//     this.step++;
+//     return this;
+//   },
+//   down() {
+//     this.step--;
+//     return this;
+//   },
+//   showStep() {
+//     alert( this.step );
+//     return this;
+//   }
+// };
+
+// ladder.up().up().down().showStep().down().showStep();
+
+// let ladder = {
+//   step: 0,
+//   up() {
+//     this.step++;
+//   },
+//   down() {
+//     this.step--;
+//   },
+//   showStep: function() { // показывает текущую ступеньку
+//     alert( this.step );
+//   }
+// };
+// ladder.up().up().down().showStep().down().showStep();
+
+// Создайте объект calculator (калькулятор) с тремя методами:
+//     read() (читать) запрашивает два значения и сохраняет их как свойства объекта с именами a и b.
+//     sum() (суммировать) возвращает сумму сохранённых значений.
+//     mul() (умножить) перемножает сохранённые значения и возвращает результат.
+
+// const calculator = {
+//   read() {
+//     this.a = parseInt(prompt("Введите число 1"));
+//     this.b = parseInt(prompt("Введите число 2"));
+//   },
+//   sum() {
+//     return this.a + this.b;
+//   },
+//   mul() {
+//     return this.a * this.b;
+//   },
+// };
+
+// console.log(calculator.read());
+// console.log(calculator.sum());
+// console.log(calculator.mul());
+
+// function delay(ms) {
+//   return (promise = new Promise((resolve, reject) => {
+//     setTimeout(resolve, ms);
+//   }));
+// }
 
 // правильный синтаксис:
-function delay(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+// function delay(ms) {
+//   return new Promise((resolve) => setTimeout(resolve, ms));
+// }
 
-delay(3000).then(() => console.log("выполнилось через 3 секунды"));
+// delay(3000).then(() => console.log("выполнилось через 3 секунды"));
 
 // const pow = (x, n) => {
 //   let result = x;
