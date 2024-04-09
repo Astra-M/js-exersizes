@@ -1,3 +1,36 @@
+function Accumulator(startingValue) {
+  this.value = startingValue;
+
+  this.read = function () {
+    return (this.value = this.value += +prompt("Введите число", 0));
+  };
+}
+let accumulator = new Accumulator(1); // начальное значение 1
+
+accumulator.read(); // прибавляет введённое пользователем значение к текущему значению
+accumulator.read(); // прибавляет введённое пользователем значение к текущему значению
+
+alert(accumulator.value); // выведет сумму этих значений
+// function Calculator() {
+//   this.read = function () {
+//     this.a = parseInt(prompt("Введите число 1"));
+//     this.b = parseInt(prompt("Введите число 2"));
+//     // this.a = +prompt('Введите число 1', 0),
+//     // this.b = +prompt('Введите число 2', 0),
+//   };
+//   this.sum = function () {
+//     return this.a + this.b;
+//   };
+//   this.mul = function () {
+//     return this.a * this.b;
+//   };
+// }
+
+// let calculator = new Calculator();
+// calculator.read();
+// console.log("Sum=" + calculator.sum());
+// console.log("Mul=" + calculator.mul());
+
 // Правильное  решение состоит в том, чтобы возвращать сам объект из каждого вызова.
 
 // let ladder = {
