@@ -1,16 +1,181 @@
-function Accumulator(startingValue) {
-  this.value = startingValue;
+// async function wait() {
+//   await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  this.read = function () {
-    return (this.value = this.value += +prompt("Введите число", 0));
-  };
-}
-let accumulator = new Accumulator(1); // начальное значение 1
+//   return 10;
+// }
 
-accumulator.read(); // прибавляет введённое пользователем значение к текущему значению
-accumulator.read(); // прибавляет введённое пользователем значение к текущему значению
+// function f() {
+//   wait().then((res) => console.log(res));
+// }
 
-alert(accumulator.value); // выведет сумму этих значений
+// f();
+
+// (async () => {
+//   let response = await fetch('/article/promise-chaining/user.json');
+//   let user = await response.json();
+//   ...
+// })();
+
+// class HttpError extends Error {
+//   constructor(response) {
+//     super(`${response.status} for ${response.url}`);
+//     this.name = "HttpError";
+//     this.response = response;
+//   }
+// }
+
+// async function loadJson(url) {
+//   const response = await fetch(url);
+
+//   if (response.status == 200) {
+//     const json = await response.json();
+//     return json;
+//   } else {
+//     throw new HttpError(response);
+//   }
+// }
+
+// async function demoGithubUser() {
+//   const name = prompt("Введите логин?", "iliakan");
+//   try {
+//     const user = await loadJson(`https://api.github.com/users/${name}`);
+//     alert(`Полное имя: ${user.name}.`);
+//     return user;
+//   } catch (err) {
+//     if (err instanceof HttpError && err.response.status == 404) {
+//       alert("Такого пользователя не существует, пожалуйста, повторите ввод.");
+//       await demoGithubUser();
+//     } else {
+//       throw err;
+//     }
+//   }
+// }
+
+// правильно:
+// // Запрашивать логин, пока github не вернёт существующего пользователя.
+// async function demoGithubUser() {
+
+//   let user;
+//   while(true) {
+//     let name = prompt("Введите логин?", "iliakan");
+
+//     try {
+//       user = await loadJson(`https://api.github.com/users/${name}`);
+//       break; // ошибок не было, выходим из цикла
+//     } catch(err) {
+//       if (err instanceof HttpError && err.response.status == 404) {
+//         // после alert начнётся новая итерация цикла
+//         alert("Такого пользователя не существует, пожалуйста, повторите ввод.");
+//       } else {
+//         // неизвестная ошибка, пробрасываем её
+//         throw err;
+//       }
+//     }
+//   }
+
+//   alert(`Полное имя: ${user.name}.`);
+//   return user;
+// }
+
+// demoGithubUser();
+
+// const user = await loadJson(`https://api.github.com/users/${name}`)
+// alert(`Полное имя: ${user.name}.`);
+// return user;
+
+// return loadJson(`https://api.github.com/users/${name}`)
+//   .then(user => {
+//     alert(`Полное имя: ${user.name}.`);
+//     return user;
+//   })
+//   .catch(err => {
+//     if (err instanceof HttpError && err.response.status == 404) {
+//       alert("Такого пользователя не существует, пожалуйста, повторите ввод.");
+//       return demoGithubUser();
+//     } else {
+//       throw err;
+//     }
+//   });
+// }
+
+// function loadJson(url) {
+//   return fetch(url)
+//     .then(response => {
+//       if (response.status == 200) {
+//         return response.json();
+//       } else {
+//         throw new HttpError(response);
+//       }
+//     })
+// }
+
+// Запрашивать логин, пока github не вернёт существующего пользователя.
+// function demoGithubUser() {
+//   let name = prompt("Введите логин?", "iliakan");
+
+//   return loadJson(`https://api.github.com/users/${name}`)
+//     .then(user => {
+//       alert(`Полное имя: ${user.name}.`);
+//       return user;
+//     })
+//     .catch(err => {
+//       if (err instanceof HttpError && err.response.status == 404) {
+//         alert("Такого пользователя не существует, пожалуйста, повторите ввод.");
+//         return demoGithubUser();
+//       } else {
+//         throw err;
+//       }
+//     });
+// }
+
+// async function loadJson(url) {
+//   const response = await fetch(url);
+//   if (response.status == 200) {
+//     return response.json();
+//   } else {
+//     throw new Error(response.status);
+//   }
+// }
+
+// loadJson("no-such-user.json") // (3)
+//   .catch(alert); // Error: 404
+
+// Правильный ответ:
+// async function loadJson(url) { // (1)
+//   let response = await fetch(url); // (2)
+
+//   if (response.status == 200) {
+//     let json = await response.json(); // (3)
+//     return json;
+//   }
+
+//   throw new Error(response.status);
+// }
+
+// function loadJson(url) {
+//   return fetch(url)
+//     .then(response => {
+//       if (response.status == 200) {
+//         return response.json();
+//       } else {
+//         throw new Error(response.status);
+//       }
+//     })
+// }
+
+// function Accumulator(startingValue) {
+//   this.value = startingValue;
+
+//   this.read = function () {
+//     return (this.value = this.value += +prompt("Введите число", 0));
+//   };
+// }
+// let accumulator = new Accumulator(1); // начальное значение 1
+
+// accumulator.read(); // прибавляет введённое пользователем значение к текущему значению
+// accumulator.read(); // прибавляет введённое пользователем значение к текущему значению
+
+// alert(accumulator.value); // выведет сумму этих значений
 // function Calculator() {
 //   this.read = function () {
 //     this.a = parseInt(prompt("Введите число 1"));
